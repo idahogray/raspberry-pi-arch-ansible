@@ -1,0 +1,18 @@
+---
+- hosts: raspberry-pi
+  remote_user: root
+  tasks:
+  - name: install sudo
+    pacman: name=sudo state=installed
+  - name: install zsh
+    pacman: name=zsh state=installed
+  - name: configure sudo
+    lineinfile: dest=/etc/sudoers regexp="keith ALL" line="keith ALL=(ALL) ALL" state=present validate='visudo -cf %s'
+  - name: Add keith user
+    user: name=keith groups=users shell=/usr/bin/zsh 
+  - name: Give keith his authorized keys file
+    authorized_key: user=keith key="{{ lookup('file', '/home/keith/.ssh/id_rsa.pub') }}"
+  - name: Remove ability for root user to login over ssh
+    lineinfile: dest=/etc/ssh/sshd_config regexp="^#PasswordAuthentication" insertafter="^#PasswordAuthentication" line="PasswordAuthentication no"
+
+    

@@ -1,0 +1,14 @@
+---
+- hosts: raspberry-pi
+  sudo: yes
+  tasks:
+    - name: Full system upgrade
+      command: pacman -Syu --noconfirm
+    - name: Install vim
+      pacman: name=gvim state=installed update_cache=yes
+    - name: Install system-wide python modules
+      pacman: name={{ item }} state=installed
+      with_items:
+        - python2-pip
+        - python2-virtualenv
+        - python-virtualenvwrapper

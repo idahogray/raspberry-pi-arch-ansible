@@ -8,9 +8,9 @@ Use
 
 1. Run the raspberry-pi-init.yaml playbook as root
 
-	ansible-playbook -k raspberry-pi-init.yaml
+    ansible-playbook -k raspberry-pi-init.yaml
 
 
 2. Run the raspberry-pi.yaml playbook as the keith user
 
-	ansible-playbook -K raspberry-pi.yaml 
+    ansible-playbook -K raspberry-pi.yaml 
